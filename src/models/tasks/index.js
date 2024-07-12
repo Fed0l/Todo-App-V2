@@ -42,7 +42,7 @@ async function updateTaskById(user_id, title, description,duedate, is_completed)
   return result;
 }
 
-async function deleteTodoById(user_id,title) {
+async function deleteTaskById(user_id,title) {
   const sql = `delete from ${schema}.${table}
      where user_id = $1 and title = $2;`;
     const res = await query(sql, [user_id, title]);
@@ -54,6 +54,6 @@ export {
   getTaskById,
   createTask,
   // updateTaskById,
-  deleteTodoById
+  deleteTaskById
 }
 
