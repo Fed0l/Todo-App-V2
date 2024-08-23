@@ -9,10 +9,9 @@ export const query = async (sql, params) => {
     client = new Client(postgressEssentails);
     await client.connect();
     const res = await client.query(sql, params);
-    return res.rows;
+    return res;
   } catch (err) {
-    console.error(err);
-    return null;
+    throw err;
   } finally {
     await client.end();
   }
