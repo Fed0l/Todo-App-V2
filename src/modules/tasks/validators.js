@@ -42,6 +42,9 @@ const createTaskValidator = async (req, res, next) => {
 // Validator middleware to validate task update data
 const updateTaskValidator = async (req, res, next) => {
   try {
+    if (!req.body.duedate) {  
+      req.body.duedate = new Date();  // Set current date if 'duedate' is not provided  
+    } 
     const bodySchema = Joi.object({
       id: Joi.number().required(),             // Task ID is required and must be a number
       title: Joi.string().required(),          // Task title is required and must be a string
