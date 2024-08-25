@@ -5,8 +5,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies and rebuild bcrypt
-RUN npm ci
-RUN npm rebuild bcrypt --build-from-source
+RUN npm Install
 
 COPY . .
 
