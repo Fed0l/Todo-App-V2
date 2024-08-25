@@ -3,14 +3,17 @@ FROM node:21
 # Set the working directory  
 WORKDIR /usr/src/app  
 
-# Copy only package.json and package-lock.json (if available)  
+# Copy only package.json and package-lock.json  
 COPY package*.json ./  
 
 # Install build tools and dependencies  
-RUN apk add --no-cache make gcc g++ python && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential python3 && \
     npm install && \
     npm rebuild bcrypt --build-from-source && \
-    apk del make gcc g++ python  
+    apt-get remove --purge -y build-essential python3 && \
+    apt-get autoremove -y && \
+    apt-get clean  
 
 # Copy the rest of the application code  
 COPY . .  
