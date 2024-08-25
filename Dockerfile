@@ -1,16 +1,22 @@
-FROM node:21
+FROM node:21  
 
-WORKDIR /usr/src/app
+# Set the working directory  
+WORKDIR /usr/src/app  
 
-COPY package*.json ./
+# Copy only package.json and package-lock.json (if available)  
+COPY package*.json ./  
 
-RUN apk add --no-cache make gcc g++ python && npm install && npm rebuild bcrypt --build-from-source && apk del make gcc g++ python
+# Install build tools and dependencies  
+RUN apk add --no-cache make gcc g++ python && \
+    npm install && \
+    npm rebuild bcrypt --build-from-source && \
+    apk del make gcc g++ python  
 
-# Install dependencies and rebuild bcrypt
-RUN npm install
+# Copy the rest of the application code  
+COPY . .  
 
-COPY . .
+# Expose the application port  
+EXPOSE 3001  
 
-EXPOSE 3001
-
+# Start the application  
 CMD ["npm", "start"]
