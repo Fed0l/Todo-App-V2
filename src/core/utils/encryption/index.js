@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { BCRYPT_CONFIG } from '../../configs/index.js';
 
 // Hashes the input password using bcrypt with configured salt rounds
